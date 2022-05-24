@@ -25,7 +25,7 @@ Promise.all([
 //On each map movement, this function is called to update the positions of the D3.js elements
 function update() {
 
-    d3.selectAll("circle")
+    d3.selectAll(".stage_point")
         .attr("cx", function(d) {
             return map.latLngToLayerPoint([d.lat, d.long]).x;
         })
@@ -33,17 +33,26 @@ function update() {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         });
 
-    d3.selectAll("path").attr("d", function(d) {
+    d3.selectAll(".stage_link").attr("d", function(d) {
         var source = map.latLngToLayerPoint(d.source);
         source = [source.x, source.y];
 
         var target = map.latLngToLayerPoint(d.target);
         target = [target.x, target.y];
 
-
-        return linkGen({ source: source, target: target });
-
+        return linkGen({ source: source, target: target });   
     });
+
+    // var vx = d3.select("#start_flag").attr("x")
+    // var vy = d3.select("#start_flag").attr("y")
+    // var coord_map = map.latLngToLayerPoint([vx, vy])
+    // d3.select("#start_flag")
+    //     .attr("x", coord_map.x)
+    //     .attr("y", coord_map.y)
+    
+    // console.log(vx)
+    // console.log(coord_map)
+
 }
 
 

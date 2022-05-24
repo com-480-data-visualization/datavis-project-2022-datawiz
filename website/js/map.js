@@ -12,7 +12,6 @@ L.tileLayer(
 L.svg().addTo(map);
 
 
-
 // If the user change the map (zoom or drag), I update circle position:
 map.on("moveend", update);
 

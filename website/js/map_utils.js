@@ -85,7 +85,8 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
                 console.log(d.type);
             }
             return color
-        });
+        })
+        .attr("class", "stage_link");
 
 
     d3.select("#map")
@@ -104,13 +105,14 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
         .attr("fill", "none")
         .attr("stroke-width", 3)
         .style("stroke-dasharray", ("3, 3"))
-        .attr("stroke", "black");
+        .attr("stroke", "black")
+        .attr("class", "stage_link");
 
 
     d3.select("#map")
         .select("svg")
         .selectAll("markers")
-        .data(markers.slice(1, markers.length - 1))
+        .data(markers)
         .enter()
         .append("circle")
         .attr("cx", function(d) {
@@ -121,44 +123,87 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
         })
         .attr("r", 4)
         .style("fill", "black")
+        .attr("class", "stage_point");
 
+    // add start flag svg
+    d3.svg("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/resources/start_flag.svg")
+        .then(data => {
+            var mod_data = data.documentElement;
+            mod_data.id = "start_flag";
+            var start_flag_svg = document.importNode(mod_data, true)
 
-    d3.select("#map")
-        .select("svg")
-        .selectAll("start")
-        .data(markers.slice(0, 1))
-        .enter()
-        .append("circle")
-        .attr("cx", function(d) {
-            return map.latLngToLayerPoint([d.lat, d.long]).x;
-        })
-        .attr("cy", function(d) {
-            return map.latLngToLayerPoint([d.lat, d.long]).y;
-        })
-        .attr("r", 8)
-        .style("fill", "green")
-        .attr("stroke", "green")
-        .attr("stroke-width", 3)
-        .attr("fill-opacity", 0.4);
+            d3.select("#map")
+                .select("svg")
+                .node()
+                .append(
+                    start_flag_svg    
+                )
 
+            var width = 30;
+            var height = 30;
 
-    d3.select("#map")
-        .select("svg")
-        .selectAll("start")
-        .data(markers.slice(markers.length - 1, markers.length))
-        .enter()
-        .append("circle")
-        .attr("cx", function(d) {
-            return map.latLngToLayerPoint([d.lat, d.long]).x;
-        })
-        .attr("cy", function(d) {
-            return map.latLngToLayerPoint([d.lat, d.long]).y;
-        })
-        .attr("r", 8)
-        .style("fill", "red")
-        .attr("stroke", "red")
-        .attr("stroke-width", 3)
-        .attr("fill-opacity", 0.4);
+            d3.select("#start_flag")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("class", "stage_point_flag")
+
+            d3.select("#map")
+                .select("svg")
+                .selectAll("end")
+                .data(markers.slice(0, 1))
+                .enter()
+                .append("placeholder")
+                .attr("cx", function(d) {
+                    var vx = map.latLngToLayerPoint([d.lat, d.long]).x
+                    d3.select("#start_flag")
+                        .attr("x", vx - 5)
+                })
+                .attr("cy", function(d) {
+                    var vy = map.latLngToLayerPoint([d.lat, d.long]).y
+                    d3.select("#start_flag")
+                        .attr("y", vy - height + 2)
+                })
+        });
+
+    // add finish flag svg
+    d3.svg("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/resources/finish_flag.svg")
+        .then(data => {
+            var mod_data = data.documentElement;
+            mod_data.id = "finish_flag";
+            var start_flag_svg = document.importNode(mod_data, true)
+
+            d3.select("#map")
+                .select("svg")
+                .node()
+                .append(
+                    start_flag_svg    
+                )
+
+            var width = 30;
+            var height = 30;
+
+            d3.select("#finish_flag")
+                .attr("width", width)
+                .attr("height", height)
+                .attr("class", "stage_point_flag")
+
+            d3.select("#map")
+                .select("svg")
+                .selectAll("end")
+                .data(markers.slice(markers.length -1, markers.length))
+                .enter()
+                .append("placeholder")
+                .attr("cx", function(d) {
+                    var vx = map.latLngToLayerPoint([d.lat, d.long]).x
+                    d3.select("#finish_flag")
+                        .attr("x", vx - 5)
+                })
+                .attr("cy", function(d) {
+                    var vy = map.latLngToLayerPoint([d.lat, d.long]).y
+                    d3.select("#finish_flag")
+                        .attr("y", vy - height + 2)
+                })
+        });
 
 
 }
