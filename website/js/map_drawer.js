@@ -1,12 +1,15 @@
 var stages;
 var locations;
+var stage_data;
 //D3.JS on Leaflet
 Promise.all([
     d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/locations.csv"),
-    d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/tdf_stages.csv")
+    d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/tdf_stages.csv"),
+    d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/stage_data.csv")
 ]).then(function(initialize) {
     locations = initialize[0];
     stages = initialize[1]
+    stage_data = initialize[2]
 
     const years = new Set()
     stages.forEach(stage => {

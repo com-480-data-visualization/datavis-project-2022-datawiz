@@ -142,7 +142,7 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             selected_stage = selected_edition_stages.filter(stage => {
                 return stage.stage == d3.select(this).attr("stage_id");
             })[0]
-            $("#stages_pane").html(JSON.stringify(selected_stage))
+            fill_winner_table(selected_stage.date.slice(0, 4), selected_stage.stage)
         })
 
 

@@ -24,21 +24,26 @@ var sidebar = L.control
     .open("home");
 
 // add panels dynamically to the sidebar
-sidebar
-    .addPanel({
-        id: "edition",
-        tab: '<i class="fa-solid fa-g"></i><i class="fa-solid fa-c"></i>',
-        title: "Edition",
-        pane: '<p>This tab contains information on the currently selected edition.<p>',
-    })
-    .addPanel({
-        id: "stages",
-        tab: '<i class="fa-solid fa-s"></i><i class="fa-solid fa-t"></i>',
-        title: "Stages",
-        pane: '<div id="stages_pane"></div>'
-    })
+sidebar.addPanel({
+    id: "edition",
+    tab: '<i class="fa-solid fa-g"></i><i class="fa-solid fa-c"></i>',
+    title: "Edition",
+    pane: '<p>This tab contains information on the currently selected edition.<p>',
+})
 
-// add information tab
+
+
+fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/winner_tables/website/html/stage_tab.html")
+    .then(response => response.text())
+    .then((data) => {
+        sidebar.addPanel({
+            id: "stages",
+            tab: '<i class="fa-solid fa-s"></i><i class="fa-solid fa-t"></i>',
+            title: "Stages",
+            pane: data
+        })
+    })
+    // add information tab
 fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/information_tab.html")
     .then(response => response.text())
     .then((data) => {
@@ -48,6 +53,7 @@ fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-proj
             title: "Information",
             pane: data
         })
+
     }).then(
         () => {
             var coll = document.getElementsByClassName("inf_tab_collapsible");
