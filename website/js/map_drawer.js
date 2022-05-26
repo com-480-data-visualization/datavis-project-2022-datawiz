@@ -42,9 +42,19 @@ function changeEdition(edition_year) {
 
     fill_stage_select(edition_year, stage_numbers)
 
-    // Update displayed result on stage change
+    // Update stage change
     $('#stage_select').on('change', function() {
+        // Update which results are displayed
         var selected_stage = $(this).val();
         fill_stage_result_table(edition_year, selected_stage)
+
+        // Update which path is higlighted
+        reset_all_paths_states()
+        var link = d3.selectAll(".leaflet-interactive.stage_link")
+            .filter(function(d) {
+                return d.stage_id == selected_stage
+            })
+        link.attr("clicked", true)
+            .attr("stroke", pSBC(0.5, link.attr("stroke")))
     });
 }
