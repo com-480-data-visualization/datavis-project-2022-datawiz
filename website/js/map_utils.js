@@ -131,6 +131,7 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
         }).attr("pointer-events", "visiblePainted")
         .attr("class", "leaflet-interactive stage_link")
         .attr("clicked", false)
+        /* enable color change on hover */
         .on("mouseover", function() {
             if (d3.select(this).attr("clicked") == "false") {
                 d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
@@ -142,6 +143,7 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             }
 
         })
+        /* enable stage selection by clicking */
         .on("click", function() {
             d3.selectAll("path").attr("stroke", function() {
                 var color = d3.select(this).attr("original_color")
@@ -156,6 +158,7 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             selected_stage = selected_edition_stages.filter(stage => {
                 return stage.stage == d3.select(this).attr("stage_id");
             })[0]
+            document.getElementById("stage_select").value = selected_stage.stage
             fill_stage_result_table(selected_stage.date.slice(0, 4), selected_stage.stage)
         })
 
