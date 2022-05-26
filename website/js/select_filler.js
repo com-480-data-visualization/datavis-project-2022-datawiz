@@ -12,7 +12,7 @@ function fill_edition_select(years, selected) {
     edition_select.value = selected
 }
 
-function fill_stage_select(stage_numbers) {
+function fill_stage_select(edition_year, stage_numbers) {
     var stage_select = document.getElementById("stage_select")
     stage_select.innerHTML = '';
 
@@ -25,4 +25,6 @@ function fill_stage_select(stage_numbers) {
     });
 
     stage_select.value = stage_numbers[0]
+
+    fill_stage_result_table(edition_year, stage_numbers[0])
 }

@@ -22,12 +22,6 @@ function init_edition_selection() {
         fill_edition_select(years, starting_year)
         changeEdition(starting_year)
     });
-
-    //Draw new lines and markers on edition change
-    $('#edition_select').on('change', function() {
-        var selected_edition = $(this).val();
-        changeEdition(selected_edition);
-    });
 }
 
 function changeEdition(edition_year) {
@@ -45,10 +39,12 @@ function changeEdition(edition_year) {
             stage_numbers.add(stage.stage)
         }
     })
-    
-    init_stage_selection(stage_numbers)
-}
 
-function init_stage_selection(stage_numbers) {
-    fill_stage_select(stage_numbers)
+    fill_stage_select(edition_year, stage_numbers)
+
+    // Update displayed result on stage change
+    $('#stage_select').on('change', function() {
+        var selected_stage = $(this).val();
+        fill_stage_result_table(edition_year, selected_stage)
+    });
 }
