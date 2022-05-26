@@ -1,3 +1,10 @@
+/*
+
+    contains functions used to update numerical and statistical content on the sidebar
+
+*/
+
+
 var stages;
 var locations;
 var stage_data;
@@ -31,7 +38,7 @@ function changeEdition(edition_year) {
     var links = markers_links_jumps[1]
     var jumps = markers_links_jumps[2]
 
-    draw_markers_links_and_jumps_on_map(markers, links, jumps)
+    draw_map_elements(markers, links, jumps)
 
     var stage_numbers = new Set()
     stages.forEach(stage => {

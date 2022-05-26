@@ -1,3 +1,10 @@
+/*
+
+    functions used to update result tables
+
+*/
+
+
 function fill_stage_result_table(year, stage_number) {
     selected_stage_data = stage_data.filter(function(data) {
         return (data.year == year) && (data.stage_number == stage_number)

@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html>
 
+<!-- stylesheets -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
+<link rel="stylesheet" href="../css/leaflet-sidebar.css" />
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<!-- remote scripts -->
+<script src="https://d3js.org/d3.v6.js"></script>
+<script type="text/javascript" charset="utf8" src="	https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
+
+<!-- local scripts -->
+<script src="../js/leaflet-sidebar.js"></script>
+<script src="../js/sidebar_utils.js"></script>
+<script src="../js/lighten_color.js"></script>
+<script src="../js/map_utils.js"></script>
+<script src="../js/result_table_filler.js"></script>
+<script src="../js/select_filler.js"></script>
+
+<!-- website header -->
 <head>
-    <title>Tour de France Viz</title>
+    <title>Tour de France Visualization</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
-
-    <link rel="stylesheet" href="../css/leaflet-sidebar.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-
-    <script src="https://d3js.org/d3.v6.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
-
-
-    <script type="text/javascript" charset="utf8" src="	https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <style>
         body {
@@ -37,6 +44,7 @@
     </style>
 </head>
 
+<!-- main body -->
 <body>
     <!-- optionally define the sidebar content via HTML markup -->
     <div id="sidebar" class="leaflet-sidebar collapsed">
@@ -54,7 +62,7 @@
             </ul>
         </div>
 
-        <!-- panel content -->
+        <!-- define home tab content -->
         <div class="leaflet-sidebar-content">
             <div class="leaflet-sidebar-pane" id="home">
                 <h1 class="leaflet-sidebar-header" style="align-content: center;">
@@ -71,14 +79,8 @@
 
     <div id="map"></div>
 
-    <script src="../js/result_table_filler.js"></script>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
-    <script src="../js/leaflet-sidebar.js"></script>
-    <script src="../js/lighten_color.js"></script>
-    <script src="../js/map_utils.js"></script>
-    <script src="../js/map.js"></script>
-    <script src="../js/map_drawer.js"></script>
-    <script src="../js/select_filler.js"></script>
+    <!-- launch the visualization -->
+    <script src="../js/visualization.js"></script>
 
 </body>
 

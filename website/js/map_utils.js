@@ -1,4 +1,10 @@
-/* Define stage type colors */
+/*
+
+    contains functions used to update the maps graphical content
+
+*/
+
+// Define stage type colors
 const type_to_color = new Map()
 type_to_color.set("Flat stage", "#03C700")
 type_to_color.set("Hilly stage", "#b300c7")
@@ -7,9 +13,8 @@ type_to_color.set("High mountain stage", "#c79c00")
 type_to_color.set("Individual time trial", "#00b3c7")
 type_to_color.set("Team time trial", "#004bf7")
 
-//On each map movement, this function is called to update the positions of the D3.js elements
+// On each map movement, this function is called to update the positions of the D3.js elements
 function update() {
-
     d3.selectAll(".stage_point")
         .attr("cx", function(d) {
             return map.latLngToLayerPoint([d.lat, d.long]).x;
@@ -24,7 +29,6 @@ function update() {
 
         var target = map.latLngToLayerPoint(d.target);
         target = [target.x, target.y];
-
 
         return linkGen({ source: source, target: target });
 
@@ -56,12 +60,9 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
     var origins = []
     var destinations = []
 
-
-
     selected_edition_stages = stages.filter(stage => {
         return stage.year == selected_edition;
     })
-
 
     selected_edition_stages.forEach(element => {
         var origin = locations.filter(location => {
@@ -87,7 +88,6 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
                 var jump_target = [+origins[i + 1].long, +origins[i + 1].lat]
                 var jump = { source: jump_source, target: jump_target }
                 jumps.push(jump)
-
             }
 
             var marker = { long: +origins[i].lat, lat: origins[i].long };
@@ -95,7 +95,6 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
 
             var marker = { long: +destinations[i].lat, lat: destinations[i].long };
             markers.push(marker);
-
 
         } catch (error) {
             console.log(origins[i]);
@@ -119,11 +118,12 @@ function reset_all_paths_states() {
     }).attr("clicked", false)
 }
 
-function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
+// Draw all the elements displayed on the map
+function draw_map_elements(markers, links, jumps) {
 
     d3.select("#map").select("svg").selectAll("*").remove();
 
-    //Draw links between locations
+    // draw links between locations
     d3.select("#map")
         .select("svg")
         .selectAll("links")
@@ -175,7 +175,6 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             fill_stage_result_table(selected_stage.date.slice(0, 4), selected_stage.stage)
         })
 
-
     d3.select("#map")
         .select("svg")
         .selectAll("jumps")
@@ -194,7 +193,6 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
         .style("stroke-dasharray", ("3, 3"))
         .attr("stroke", "black")
         .attr("class", "stage_link");
-
 
     // add stage end points
     d3.select("#map")

@@ -1,3 +1,10 @@
+/*
+
+    entry point of the visualization
+
+*/
+
+
 var map = L.map("map").setView([47, 2], 6);
 
 // Add a tile to the map = a background. Comes from OpenStreetmap
@@ -11,10 +18,10 @@ L.tileLayer(
 
 L.svg().addTo(map);
 
-
-// If the user change the map (zoom or drag), I update circle position:
+// If the user change the map (zoom or drag), call update function
 map.on("moveend", update);
 
+// Open sidebar on home tab
 var sidebar = L.control
     .sidebar({
         container: "sidebar",
@@ -22,7 +29,7 @@ var sidebar = L.control
     .addTo(map)
     .open("home");
 
-// add editions tab
+// Add editions tab
 fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/work-jonas-refactoring/website/html/tab_edition.html")
     .then(response => response.text())
     .then((data) => {
@@ -42,7 +49,7 @@ fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-proj
         });
     })
     
-// add stages tab
+// Add stage tab
 fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/work-jonas-refactoring/website/html/tab_stage.html")
     .then(response => response.text())
     .then((data) => {
@@ -54,7 +61,7 @@ fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-proj
         })
     })
 
-// add information tab
+// Add information tab
 fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/work-jonas-refactoring/website/html/tab_information.html")
     .then(response => response.text())
     .then((data) => {
@@ -64,11 +71,9 @@ fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-proj
             title: "Information",
             pane: data
         })
-
     }).then(
         () => {
             var coll = document.getElementsByClassName("inf_tab_collapsible");
-
             for (var i = 0; i < coll.length; i++) {
                 coll[i].addEventListener("click", function() {
                     this.classList.toggle("active");
@@ -83,7 +88,6 @@ fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-proj
         }
     )
 
-
 // be notified when a panel is opened
 sidebar.on("content", function(ev) {
     switch (ev.id) {
@@ -95,9 +99,8 @@ sidebar.on("content", function(ev) {
     }
 });
 
-/* add Map legend */
+// add legend
 var legend = L.control({ position: "bottomright" });
-
 legend.onAdd = function(map) {
     var div = L.DomUtil.create("div", "legend");
     type_to_color.forEach((value, key, _) => {
@@ -106,5 +109,4 @@ legend.onAdd = function(map) {
 
   return div;
 };
-
 legend.addTo(map);

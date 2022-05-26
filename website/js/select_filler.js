@@ -1,3 +1,9 @@
+/*
+
+    functions used to update drop down selection menues
+
+*/
+
 function fill_edition_select(years, selected) {
     var edition_select = document.getElementById("edition_select")
 
