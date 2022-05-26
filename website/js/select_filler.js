@@ -1,4 +1,4 @@
-var select = document.getElementById("edition_select")
+var edition_select = document.getElementById("edition_select")
 
 function fill_select(years, selected) {
     years = Array.from(years).sort()
@@ -6,7 +6,7 @@ function fill_select(years, selected) {
         var opt = document.createElement('option');
         opt.value = year;
         opt.innerHTML = year;
-        select.appendChild(opt);
+        edition_select.appendChild(opt);
     });
-    select.value = selected
+    edition_select.value = selected
 }

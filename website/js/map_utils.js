@@ -156,7 +156,7 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             selected_stage = selected_edition_stages.filter(stage => {
                 return stage.stage == d3.select(this).attr("stage_id");
             })[0]
-            fill_winner_table(selected_stage.date.slice(0, 4), selected_stage.stage)
+            fill_stage_result_table(selected_stage.date.slice(0, 4), selected_stage.stage)
         })
 
 
@@ -180,6 +180,7 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
         .attr("class", "stage_link");
 
 
+    // add stage end points
     d3.select("#map")
         .select("svg")
         .selectAll("markers")
