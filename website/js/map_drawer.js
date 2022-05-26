@@ -19,7 +19,7 @@ function init_edition_selection() {
     
         var starting_year = "2017"
         
-        fill_select(years, starting_year)
+        fill_edition_select(years, starting_year)
         changeEdition(starting_year)
     });
 
@@ -38,4 +38,17 @@ function changeEdition(edition_year) {
     var jumps = markers_links_jumps[2]
 
     draw_markers_links_and_jumps_on_map(markers, links, jumps)
+
+    var stage_numbers = new Set()
+    stages.forEach(stage => {
+        if (stage.year == edition_year) {
+            stage_numbers.add(stage.stage)
+        }
+    })
+    
+    init_stage_selection(stage_numbers)
+}
+
+function init_stage_selection(stage_numbers) {
+    fill_stage_select(stage_numbers)
 }
