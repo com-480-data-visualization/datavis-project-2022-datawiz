@@ -222,6 +222,12 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
                 .attr("long", coord.long)
                 .attr("x", map.latLngToLayerPoint([coord.lat, coord.long]).x - 5)
                 .attr("y", map.latLngToLayerPoint([coord.lat, coord.long]).y - height + 2)
+
+            // for hover on pop up
+            d3.select("#start_flag")
+                .selectAll("g")
+                .append(() => document.createElement("title"))
+                .text("Start")
         });
 
     // add finish flag svg
@@ -250,6 +256,12 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
                 .attr("long", coord.long)
                 .attr("x", map.latLngToLayerPoint([coord.lat, coord.long]).x - 5)
                 .attr("y", map.latLngToLayerPoint([coord.lat, coord.long]).y - height + 2)
+
+            // for hover on pop up
+            d3.select("#finish_flag")
+                .selectAll("g")
+                .append(() => document.createElement("title"))
+                .text("Finish")
         });
 }
 
