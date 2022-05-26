@@ -81,3 +81,18 @@ sidebar.on("content", function(ev) {
             sidebar.options.autopan = false;
     }
 });
+
+/* add Map legend */
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function(map) {
+    var div = L.DomUtil.create("div", "legend");
+    div.innerHTML += "<h4>Legend</h4>";
+    type_to_color.forEach((value, key, _) => {
+        div.innerHTML += '<i style="background: '+value+'"></i><span>'+key+'</span><br>'
+    });
+
+  return div;
+};
+
+legend.addTo(map);
