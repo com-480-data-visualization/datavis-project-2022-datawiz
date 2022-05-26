@@ -1,6 +1,6 @@
-var edition_select = document.getElementById("edition_select")
-
 function fill_select(years, selected) {
+    var edition_select = document.getElementById("edition_select")
+
     years = Array.from(years).sort()
     years.forEach(year => {
         var opt = document.createElement('option');
