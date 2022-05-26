@@ -21,15 +21,19 @@ function update() {
 
     });
 
-    // var vx = d3.select("#start_flag").attr("x")
-    // var vy = d3.select("#start_flag").attr("y")
-    // var coord_map = map.latLngToLayerPoint([vx, vy])
-    // d3.select("#start_flag")
-    //     .attr("x", coord_map.x)
-    //     .attr("y", coord_map.y)
+    var lat = d3.selectAll("#start_flag").attr("lat")
+    var long = d3.selectAll("#start_flag").attr("long")
+    var height = d3.selectAll("#start_flag").attr("height")
+    d3.select("#start_flag")
+        .attr("x", map.latLngToLayerPoint([lat, long]).x - 5)
+        .attr("y", map.latLngToLayerPoint([lat, long]).y - height + 2)
 
-    // console.log(vx)
-    // console.log(coord_map)
+    var lat = d3.selectAll("#finish_flag").attr("lat")
+    var long = d3.selectAll("#finish_flag").attr("long")
+    var height = d3.selectAll("#finish_flag").attr("height")
+    d3.select("#finish_flag")
+        .attr("x", map.latLngToLayerPoint([lat, long]).x - 5)
+        .attr("y", map.latLngToLayerPoint([lat, long]).y - height + 2)
 }
 
 var selected_edition_stages;
@@ -199,6 +203,10 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             mod_data.id = "start_flag";
             var start_flag_svg = document.importNode(mod_data, true)
 
+            var width = 30;
+            var height = 30;
+            var coord = markers.slice(0, 1)[0];
+
             d3.select("#map")
                 .select("svg")
                 .node()
@@ -206,30 +214,14 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
                     start_flag_svg    
                 )
 
-            var width = 30;
-            var height = 30;
-
             d3.select("#start_flag")
                 .attr("width", width)
                 .attr("height", height)
                 .attr("class", "stage_point_flag")
-
-            d3.select("#map")
-                .select("svg")
-                .selectAll("end")
-                .data(markers.slice(0, 1))
-                .enter()
-                .append("placeholder")
-                .attr("cx", function(d) {
-                    var vx = map.latLngToLayerPoint([d.lat, d.long]).x
-                    d3.select("#start_flag")
-                        .attr("x", vx - 5)
-                })
-                .attr("cy", function(d) {
-                    var vy = map.latLngToLayerPoint([d.lat, d.long]).y
-                    d3.select("#start_flag")
-                        .attr("y", vy - height + 2)
-                })
+                .attr("lat", coord.lat)
+                .attr("long", coord.long)
+                .attr("x", map.latLngToLayerPoint([coord.lat, coord.long]).x - 5)
+                .attr("y", map.latLngToLayerPoint([coord.lat, coord.long]).y - height + 2)
         });
 
     // add finish flag svg
@@ -239,6 +231,10 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
             mod_data.id = "finish_flag";
             var start_flag_svg = document.importNode(mod_data, true)
 
+            var width = 30;
+            var height = 30;
+            var coord = markers.slice(markers.length -1, markers.length)[0];
+
             d3.select("#map")
                 .select("svg")
                 .node()
@@ -246,70 +242,15 @@ function draw_markers_links_and_jumps_on_map(markers, links, jumps) {
                     start_flag_svg    
                 )
 
-            var width = 30;
-            var height = 30;
-
             d3.select("#finish_flag")
                 .attr("width", width)
                 .attr("height", height)
-                .attr("class", "stage_point_flag")
-
-            d3.select("#map")
-                .select("svg")
-                .selectAll("end")
-                .data(markers.slice(markers.length -1, markers.length))
-                .enter()
-                .append("placeholder")
-                .attr("cx", function(d) {
-                    var vx = map.latLngToLayerPoint([d.lat, d.long]).x
-                    d3.select("#finish_flag")
-                        .attr("x", vx - 5)
-                })
-                .attr("cy", function(d) {
-                    var vy = map.latLngToLayerPoint([d.lat, d.long]).y
-                    d3.select("#finish_flag")
-                        .attr("y", vy - height + 2)
-                })
+                .attr("class", "stage_point_point")
+                .attr("lat", coord.lat)
+                .attr("long", coord.long)
+                .attr("x", map.latLngToLayerPoint([coord.lat, coord.long]).x - 5)
+                .attr("y", map.latLngToLayerPoint([coord.lat, coord.long]).y - height + 2)
         });
-
-
-
-    // d3.select("#map")
-    //     .select("svg")
-    //     .selectAll("start")
-    //     .data(markers.slice(0, 1))
-    //     .enter()
-    //     .append("circle")
-    //     .attr("cx", function(d) {
-    //         return map.latLngToLayerPoint([d.lat, d.long]).x;
-    //     })
-    //     .attr("cy", function(d) {
-    //         return map.latLngToLayerPoint([d.lat, d.long]).y;
-    //     })
-    //     .attr("r", 8)
-    //     .style("fill", "green")
-    //     .attr("stroke", "green")
-    //     .attr("stroke-width", 3)
-    //     .attr("fill-opacity", 0.4)
-
-
-    // d3.select("#map")
-    //     .select("svg")
-    //     .selectAll("start")
-    //     .data(markers.slice(markers.length - 1, markers.length))
-    //     .enter()
-    //     .append("circle")
-    //     .attr("cx", function(d) {
-    //         return map.latLngToLayerPoint([d.lat, d.long]).x;
-    //     })
-    //     .attr("cy", function(d) {
-    //         return map.latLngToLayerPoint([d.lat, d.long]).y;
-    //     })
-    //     .attr("r", 8)
-    //     .style("fill", "red")
-    //     .attr("stroke", "red")
-    //     .attr("stroke-width", 3)
-    //     .attr("fill-opacity", 0.4)
 }
 
 var type_to_color = { "Flat stage": "#03C700", "Mountain stage": "#5d00c7", "Individual time trial": "#00b3c7", "Team time trial": "#007bc7", "Hilly stage": "#b300c7", "High mountain stage": "#c79c00" }
