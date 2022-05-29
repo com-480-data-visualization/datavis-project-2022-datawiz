@@ -23,6 +23,14 @@ function update() {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         });
 
+    d3.selectAll(".point_stage_link")
+        .attr("cx", function(d) {
+            return map.latLngToLayerPoint([d.lat, d.long]).x;
+        })
+        .attr("cy", function(d) {
+            return map.latLngToLayerPoint([d.lat, d.long]).y;
+        });
+
     d3.selectAll(".stage_link").attr("d", function(d) {
         var source = map.latLngToLayerPoint(d.source);
         source = [source.x, source.y];
@@ -115,7 +123,14 @@ var linkGen = d3.linkHorizontal();
 var strokeWidth = 6;
 
 function reset_all_paths_states() {
-    d3.selectAll("path").attr("stroke", function() {
+    d3.selectAll(".stage_link").attr("stroke", function() {
+        var color = d3.select(this).attr("original_color")
+        if (color) {
+            return color
+        }
+        return "black"
+    }).attr("clicked", false)
+    d3.selectAll(".point_stage_link").attr("fill", function() {
         var color = d3.select(this).attr("original_color")
         if (color) {
             return color
@@ -205,7 +220,7 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .attr("stroke", "black")
         .attr("class", "stage_link")
         
-    // add stage markers
+    // add point stage markers
     d3.select("#map")
         .select("svg")
         .selectAll("markers")
@@ -219,31 +234,31 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         })
         .attr("r", 8)
-        .style("fill", function(d) {
+        .attr("fill", function(d) {
             var color = type_to_color.get(d.type);
             d3.select(this).attr("original_color", color)
             return color
         })
         .attr("pointer-events", "visiblePainted")
-        .attr("class", "leaflet-interactive stage_point")
+        .attr("class", "leaflet-interactive point_stage_link")
         .attr("clicked", false)
         /* enable color change on hover */
         .on("mouseover", function() {
             if (d3.select(this).attr("clicked") == "false") {
-                d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
+                d3.select(this).attr("fill", pSBC(0.5, d3.select(this).attr("fill")))
             }
         })
         .on("mouseout", function() {
             if (d3.select(this).attr("clicked") == "false") {
-                d3.select(this).attr("stroke", d3.select(this).attr("original_color"))
+                d3.select(this).attr("fill", d3.select(this).attr("original_color"))
             }
 
         })
-        /* enable stage selection by clicking on paths */
+        /* enable stage selection by clicking on point */
         .on("click", function() {
             reset_all_paths_states()
             d3.select(this).attr("clicked", true)
-            d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
+            d3.select(this).attr("fill", pSBC(0.5, d3.select(this).attr("fill")))
             sidebar.open("stages")
             selected_stage = selected_edition_stages.filter(stage => {
                 return stage.stage == d3.select(this).attr("stage_id");

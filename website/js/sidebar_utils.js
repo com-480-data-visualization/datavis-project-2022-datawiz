@@ -71,5 +71,11 @@ function changeEdition(edition_year) {
             })
         link.attr("clicked", true)
             .attr("stroke", pSBC(0.5, link.attr("stroke")))
+        var link = d3.selectAll(".leaflet-interactive.point_stage_link")
+            .filter(function(d) {
+                return d.stage_id == selected_stage
+            })
+        link.attr("clicked", true)
+            .attr("fill", pSBC(0.5, link.attr("fill")))
     });
 }
