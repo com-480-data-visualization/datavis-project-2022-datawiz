@@ -43,8 +43,9 @@ function changeEdition(edition_year) {
     var markers = markers_links_jumps[0]
     var links = markers_links_jumps[1]
     var jumps = markers_links_jumps[2]
+    var stage_markers = markers_links_jumps[3]
 
-    draw_map_elements(markers, links, jumps)
+    draw_map_elements(markers, links, jumps, stage_markers)
 
     var stage_numbers = new Set()
     stages.forEach(stage => {
