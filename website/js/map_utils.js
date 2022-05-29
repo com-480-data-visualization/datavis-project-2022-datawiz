@@ -54,6 +54,7 @@ var selected_edition_stages;
 function get_markers_links_and_jumps_of_year(selected_edition, stages, locations) {
 
     var markers = [];
+    var stage_markers = [];
     var links = [];
     var jumps = [];
 
@@ -79,9 +80,22 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
         try {
             var source = [+origins[i].long, +origins[i].lat];
             var target = [+destinations[i].long, +destinations[i].lat];
+
+            if (source[0] == target[0] && source[1] == target[1]) {
+                var stage_marker = { long: +destinations[i].lat, lat: destinations[i].long, type: selected_edition_stages[i].type, stage_id: selected_edition_stages[i].stage };
+                stage_markers.push(stage_marker);
+            }
+
             var link = { source: source, target: target, type: selected_edition_stages[i].type, stage_id: selected_edition_stages[i].stage };
 
             links.push(link);
+
+            var marker = { long: +origins[i].lat, lat: origins[i].long };
+            markers.push(marker);
+
+            var marker = { long: +destinations[i].lat, lat: destinations[i].long };
+            markers.push(marker);
+            
 
             if (i < origins.length - 1 && (destinations[i].location != origins[i + 1].locations)) {
                 var jump_source = target;
@@ -90,19 +104,13 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
                 jumps.push(jump)
             }
 
-            var marker = { long: +origins[i].lat, lat: origins[i].long };
-            markers.push(marker);
-
-            var marker = { long: +destinations[i].lat, lat: destinations[i].long };
-            markers.push(marker);
-
         } catch (error) {
             console.log(origins[i]);
             console.log(destinations[i]);
         }
     }
 
-    return [markers, links, jumps]
+    return [markers, links, jumps, stage_markers]
 }
 
 var linkGen = d3.linkHorizontal();
@@ -119,7 +127,7 @@ function reset_all_paths_states() {
 }
 
 // Draw all the elements displayed on the map
-function draw_map_elements(markers, links, jumps) {
+function draw_map_elements(markers, links, jumps, stage_markers) {
 
     d3.select("#map").select("svg").selectAll("*").remove();
 
@@ -151,7 +159,8 @@ function draw_map_elements(markers, links, jumps) {
             var color = type_to_color.get(d.type);
             d3.select(this).attr("original_color", color)
             return color
-        }).attr("pointer-events", "visiblePainted")
+        })
+        .attr("pointer-events", "visiblePainted")
         .attr("class", "leaflet-interactive stage_link")
         .attr("clicked", false)
         /* enable color change on hover */
@@ -196,7 +205,62 @@ function draw_map_elements(markers, links, jumps) {
         .attr("stroke-width", strokeWidth)
         .style("stroke-dasharray", ("3, 3"))
         .attr("stroke", "black")
-        .attr("class", "stage_link");
+        .attr("class", "stage_link")
+        
+    // add stage markers
+    d3.select("#map")
+        .select("svg")
+        .selectAll("markers")
+        .data(stage_markers)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d) {
+            return map.latLngToLayerPoint([d.lat, d.long]).x;
+        })
+        .attr("cy", function(d) {
+            return map.latLngToLayerPoint([d.lat, d.long]).y;
+        })
+        .attr("r", 8)
+        .style("fill", function(d) {
+            var color = type_to_color.get(d.type);
+            d3.select(this).attr("original_color", color)
+            return color
+        })
+        .attr("pointer-events", "visiblePainted")
+        .attr("class", "leaflet-interactive stage_point")
+        .attr("clicked", false)
+        /* enable color change on hover */
+        .on("mouseover", function() {
+            if (d3.select(this).attr("clicked") == "false") {
+                d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
+            }
+        })
+        .on("mouseout", function() {
+            if (d3.select(this).attr("clicked") == "false") {
+                d3.select(this).attr("stroke", d3.select(this).attr("original_color"))
+            }
+
+        })
+        /* enable stage selection by clicking on paths */
+        .on("click", function() {
+            reset_all_paths_states()
+            d3.select(this).attr("clicked", true)
+            d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
+            sidebar.open("stages")
+            selected_stage = selected_edition_stages.filter(stage => {
+                return stage.stage == d3.select(this).attr("stage_id");
+            })[0]
+            document.getElementById("stage_select").value = selected_stage.stage
+            fill_stage_result_table(selected_stage.date.slice(0, 4), selected_stage.stage)
+        })
+        .attr("stage_id", function(d) {
+            // add title for hover on tooltip
+            var title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
+            title.innerHTML = "Stage " + d.stage_id
+            this.appendChild(title)
+            return d.stage_id;
+        });
+
 
     // add stage end points
     d3.select("#map")
