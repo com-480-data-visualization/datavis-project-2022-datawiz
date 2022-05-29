@@ -28,64 +28,62 @@ var sidebar = L.control
     .addTo(map)
     .open("home");
 
-// Add editions tab
-fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_edition.html")
-    .then(response => response.text())
-    .then((data) => {
-        sidebar.addPanel({
+// Load html
+var urls = [
+    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_edition.html",
+    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_stage.html",
+    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_information.html",
+]
+Promise.all(
+    urls.map((url) => fetch(url).then(response => response.text()))
+).then(function(data) {
+    // Add editions tab
+    sidebar.addPanel({
             id: "edition",
             tab: '📅',
             title: "Edition",
-            pane: data,
+            pane: data[0],
         })
-    })
-    .then(() => {
-        init_edition_selection()
-        // Draw new lines and markers on edition change
-        $('#edition_select').on('change', function() {
-            var selected_edition = $(this).val();
-            changeEdition(selected_edition);
-        });
-    })
-    
-// Add stage tab
-fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_stage.html")
-    .then(response => response.text())
-    .then((data) => {
-        sidebar.addPanel({
-            id: "stages",
-            tab: '🏁',
-            title: "Stages",
-            pane: data
-        })
+        
+    // Add stage tab
+    sidebar.addPanel({
+        id: "stages",
+        tab: '🏁',
+        title: "Stages",
+        pane: data[1],
     })
 
-// Add information tab
-fetch("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_information.html")
-    .then(response => response.text())
-    .then((data) => {
-        sidebar.addPanel({
-            id: "information",
-            tab: 'ℹ️',
-            title: "Information",
-            pane: data
-        })
-    }).then(
-        () => {
-            var coll = document.getElementsByClassName("inf_tab_collapsible");
-            for (var i = 0; i < coll.length; i++) {
-                coll[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
-                    var content = this.nextElementSibling;
-                    if (content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                    } else {
-                        content.style.maxHeight = content.scrollHeight + "px";
-                    }
-                });
-            };
-        }
-    )
+    // Add information tab
+    sidebar.addPanel({
+        id: "information",
+        tab: 'ℹ️',
+        title: "Information",
+        pane: data[2],
+    })
+})
+.then(() => {
+        var coll = document.getElementsByClassName("inf_tab_collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        };
+    }
+)
+.then(() => {
+    init_edition_selection()
+    // Draw new lines and markers on edition change
+    $('#edition_select').on('change', function() {
+        var selected_edition = $(this).val();
+        changeEdition(selected_edition);
+    });
+})
 
 // be notified when a panel is opened
 sidebar.on("content", function(ev) {
