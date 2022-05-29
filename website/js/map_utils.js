@@ -34,19 +34,17 @@ function update() {
 
     });
 
-    var lat = d3.selectAll("#start_flag").attr("lat")
-    var long = d3.selectAll("#start_flag").attr("long")
-    var height = d3.selectAll("#start_flag").attr("height")
-    d3.select("#start_flag")
-        .attr("x", map.latLngToLayerPoint([lat, long]).x - 5)
-        .attr("y", map.latLngToLayerPoint([lat, long]).y - height + 2)
-        
-    var lat = d3.selectAll("#finish_flag").attr("lat")
-    var long = d3.selectAll("#finish_flag").attr("long")
-    var height = d3.selectAll("#finish_flag").attr("height")
-    d3.select("#finish_flag")
-        .attr("x", map.latLngToLayerPoint([lat, long]).x - 5)
-        .attr("y", map.latLngToLayerPoint([lat, long]).y - height + 2)
+    var flags = ["#start_flag", "#finish_flag"]
+    flags.forEach((flag) => {
+        var elem = d3.select(flag)
+        if (!!elem.node()) {
+            var lat = elem.attr("lat")
+            var long = elem.attr("long")
+            var height = elem.attr("height")
+            elem.attr("x", map.latLngToLayerPoint([lat, long]).x - 5)
+                .attr("y", map.latLngToLayerPoint([lat, long]).y - height + 2)
+        }
+    })
 }
 
 var selected_edition_stages;

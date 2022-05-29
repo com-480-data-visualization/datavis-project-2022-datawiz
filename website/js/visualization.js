@@ -4,6 +4,18 @@
 
 */
 
+// callback called once visualization is loaded
+var loaded_callback = () => {
+    // If the user change the map (zoom or drag), call update function
+    map.on("moveend", update);
+
+    // hide loading screen
+    document.getElementById("loading_screen").style.display = "none"
+
+    // open home tab
+    sidebar.open("home");
+}
+
 var map = L.map("map").setView([47, 2], 6);
 
 // Add a tile to the map = a background. Comes from OpenStreetmap
@@ -17,17 +29,13 @@ L.tileLayer(
 
 L.svg().addTo(map);
 
-// If the user change the map (zoom or drag), call update function
-map.on("moveend", update);
-
 // Open sidebar on home tab
 var sidebar = L.control
     .sidebar({
         container: "sidebar",
     })
     .addTo(map)
-    .open("home");
-
+    
 // Load html
 var urls = [
     "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_edition.html",
@@ -77,7 +85,7 @@ Promise.all(
     }
 )
 .then(() => {
-    init_edition_selection()
+    init_edition_selection(loaded_callback)
     // Draw new lines and markers on edition change
     $('#edition_select').on('change', function() {
         var selected_edition = $(this).val();
