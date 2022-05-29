@@ -40,7 +40,7 @@ function update() {
     d3.select("#start_flag")
         .attr("x", map.latLngToLayerPoint([lat, long]).x - 5)
         .attr("y", map.latLngToLayerPoint([lat, long]).y - height + 2)
-
+        
     var lat = d3.selectAll("#finish_flag").attr("lat")
     var long = d3.selectAll("#finish_flag").attr("long")
     var height = d3.selectAll("#finish_flag").attr("height")
@@ -141,6 +141,10 @@ function draw_map_elements(markers, links, jumps) {
         .attr("fill", "none")
         .attr("stroke-width", strokeWidth)
         .attr("stage_id", function(d) {
+            // add title for hover on tooltip
+            var title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
+            title.innerHTML = "Stage " + d.stage_id
+            this.appendChild(title)
             return d.stage_id;
         })
         .attr("stroke", function(d) {
@@ -239,10 +243,11 @@ function draw_map_elements(markers, links, jumps) {
                 .attr("y", map.latLngToLayerPoint([coord.lat, coord.long]).y - height + 2)
 
             // for hover on pop up
+            var title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
+            title.innerHTML = "Start"
             d3.select("#start_flag")
-                .selectAll("g")
-                .append(() => document.createElement("title"))
-                .text("Start")
+                .node()
+                .appendChild(title)
         });
 
     // add finish flag svg
@@ -273,9 +278,10 @@ function draw_map_elements(markers, links, jumps) {
                 .attr("y", map.latLngToLayerPoint([coord.lat, coord.long]).y - height + 2)
 
             // for hover on pop up
+            var title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
+            title.innerHTML = "Finish"
             d3.select("#finish_flag")
-                .selectAll("g")
-                .append(() => document.createElement("title"))
-                .text("Finish")
+                .node()
+                .appendChild(title)
         });
 }
