@@ -2,6 +2,32 @@
 
 <div class="container py-4" style="padding-bottom: 1em;">
     <select id="edition_select" class="form-select" aria-label="Edition selection">
-
     </select>
 </div>
+
+<table id="jersey_winners" class="table table-borderless" style="vertical-align: middle; width: fit-content;">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr id="jersey_table_entry_yellow", hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/yellow_jersey.svg"/></th>
+            <td id="winner_name_yellow" ></td>
+        </tr>
+        <tr id="jersey_table_entry_points", hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/green_jersey.svg"/></th>
+            <td id="winner_name_points" ></td>
+        </tr>
+        <tr id="jersey_table_entry_kom", hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/kom_jersey.svg"/></th>
+            <td id="winner_name_kom" ></td>
+        </tr>
+        <tr id="jersey_table_entry_white", hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/white_jersey.svg"/></th>
+            <td id="winner_name_white" ></td>
+        </tr>
+    </tbody>
+</table>

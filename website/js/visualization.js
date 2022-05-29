@@ -4,7 +4,6 @@
 
 */
 
-
 var map = L.map("map").setView([47, 2], 6);
 
 // Add a tile to the map = a background. Comes from OpenStreetmap

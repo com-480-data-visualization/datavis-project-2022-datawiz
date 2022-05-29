@@ -28,3 +28,31 @@ function fill_stage_result_table(year, stage_number) {
         table.row.add([stage_data.rank, stage_data.rider, stage_data.team, format_seconds(stage_data.time_sec), "+ " + format_seconds(stage_data.time_gap_to_winner_sec)]).draw(false);
     });
 }
+
+function fill_jersey_winner(year) {
+    var jerseys = ["yellow", "points", "kom", "white"];
+    var table = d3.select("#jersey_winners")
+    var data_row = [];
+    var winners = new Map();
+
+    jerseys_data.forEach(row => {
+        if (row.year == year) {
+            data_row = row
+        }
+    });
+
+    jerseys.forEach(jersey => {
+        if (data_row[jersey] != undefined && data_row[jersey] != "") {
+            winners.set(jersey, data_row[jersey])
+        }
+    });
+
+    jerseys.forEach(jersey => {
+        table.select("#jersey_table_entry_"+jersey).attr("hidden", true)
+    })
+
+    winners.forEach((value, key, _) => {
+        table.select("#jersey_table_entry_"+key).attr("hidden", null)
+        table.select("#winner_name_"+key).text(value)
+    })
+}
