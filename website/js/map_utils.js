@@ -5,13 +5,25 @@
 */
 
 // Define stage type colors
+const stage_types = ["Flat stage",
+                    "Hilly stage",
+                    "Mountain stage",
+                    "High mountain stage",
+                    "Individual time trial",
+                    "Team time trial"]
+
+// colors generated using https://medialab.github.io/iwanthue/
+const type_colors = ["#7cb742",
+                    "#6595e7",
+                    "#b779e5",
+                    "#e569b7",
+                    "#f2eb45",
+                    "#c99d3f"]
+
 const type_to_color = new Map()
-type_to_color.set("Flat stage", "#03C700")
-type_to_color.set("Hilly stage", "#b300c7")
-type_to_color.set("Mountain stage", "#5d00c7")
-type_to_color.set("High mountain stage", "#c79c00")
-type_to_color.set("Individual time trial", "#00b3c7")
-type_to_color.set("Team time trial", "#004bf7")
+for (let i = 0; i < stage_types.length; i++) {
+    type_to_color.set(stage_types[i], type_colors[i])
+}
 
 // On each map movement, this function is called to update the positions of the D3.js elements
 function update() {
