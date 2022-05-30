@@ -114,9 +114,9 @@ legend.onAdd = function(map) {
     div.innerHTML += `<i style="background: repeating-linear-gradient(
         to right,
         #000000,
-        #000000 5px,
-        #FFFFFF 5px,
-        #FFFFFF 10px
+        #000000 3px,
+        #FFFFFF 3px,
+        #FFFFFF 6px
       );"></i><span>Transfer</span><br>`
 
     return div;
