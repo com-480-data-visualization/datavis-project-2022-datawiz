@@ -1,6 +1,6 @@
 #loading_screen {
   border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border-top: 16px solid var(--accent_color);
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -29,8 +29,8 @@
     font: 14px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255, 255, 255, 0.8);
-    /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-    /*border-radius: 5px;*/
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
     line-height: 24px;
     color: #555;
   }
