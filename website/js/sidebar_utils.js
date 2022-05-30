@@ -9,6 +9,7 @@ var stages;
 var locations;
 var stage_data;
 var jerseys_data;
+var edition_data;
 var jersey_imgs = new Map();
 
 
@@ -18,19 +19,21 @@ function init_edition_selection(callback) {
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/tdf_stages.csv"),
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/stage_data.csv"),
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/jerseys.csv"),
+        d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/TDF_Riders_History.csv"),
     ]).then(function(initialize) {
         locations = initialize[0];
         stages = initialize[1]
         stage_data = initialize[2]
         jerseys_data = initialize[3]
+        edition_data = initialize[4]
 
         const years = new Set()
         stages.forEach(stage => {
             years.add(stage.year);
         });
-    
+
         var starting_year = "2017"
-        
+
         fill_edition_select(years, starting_year)
         changeEdition(starting_year)
         callback()
@@ -56,6 +59,7 @@ function changeEdition(edition_year) {
 
     fill_stage_select(edition_year, stage_numbers)
     fill_jersey_winner(edition_year)
+    fill_edition_result_table(edition_year);
 
     // Update stage change
     $('#stage_select').on('change', function() {

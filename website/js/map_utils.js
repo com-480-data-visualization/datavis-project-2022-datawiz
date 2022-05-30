@@ -6,19 +6,21 @@
 
 // Define stage type colors
 const stage_types = ["Flat stage",
-                    "Hilly stage",
-                    "Mountain stage",
-                    "High mountain stage",
-                    "Individual time trial",
-                    "Team time trial"]
+    "Hilly stage",
+    "Mountain stage",
+    "High mountain stage",
+    "Individual time trial",
+    "Team time trial"
+]
 
 // colors generated using https://medialab.github.io/iwanthue/
 const type_colors = ["#7cb742",
-                    "#6595e7",
-                    "#b779e5",
-                    "#e569b7",
-                    "#f2eb45",
-                    "#c99d3f"]
+    "#6595e7",
+    "#b779e5",
+    "#e569b7",
+    "#f2eb45",
+    "#c99d3f"
+]
 
 const type_to_color = new Map()
 for (let i = 0; i < stage_types.length; i++) {
@@ -113,7 +115,7 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
 
             var marker = { long: +destinations[i].lat, lat: destinations[i].long };
             markers.push(marker);
-            
+
 
             if (i < origins.length - 1 && (destinations[i].location != origins[i + 1].locations)) {
                 var jump_source = target;
@@ -231,7 +233,7 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .style("stroke-dasharray", ("3, 3"))
         .attr("stroke", "black")
         .attr("class", "stage_link")
-        
+
     // add point stage markers
     d3.select("#map")
         .select("svg")
@@ -319,7 +321,7 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
                 .select("svg")
                 .node()
                 .append(
-                    start_flag_svg    
+                    start_flag_svg
                 )
 
             d3.select("#start_flag")
@@ -348,13 +350,13 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
 
             var width = 30;
             var height = 30;
-            var coord = markers.slice(markers.length -1, markers.length)[0];
+            var coord = markers.slice(markers.length - 1, markers.length)[0];
 
             d3.select("#map")
                 .select("svg")
                 .node()
                 .append(
-                    start_flag_svg    
+                    start_flag_svg
                 )
 
             d3.select("#finish_flag")
