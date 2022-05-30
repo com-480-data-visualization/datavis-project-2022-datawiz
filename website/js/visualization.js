@@ -35,41 +35,41 @@ var sidebar = L.control
         container: "sidebar",
     })
     .addTo(map)
-    
+
 // Load html
 var urls = [
-    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_edition.html",
+    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/edition_table/website/html/tab_edition.html",
     "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_stage.html",
     "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_information.html",
 ]
 Promise.all(
-    urls.map((url) => fetch(url).then(response => response.text()))
-).then(function(data) {
-    // Add editions tab
-    sidebar.addPanel({
+        urls.map((url) => fetch(url).then(response => response.text()))
+    ).then(function(data) {
+        // Add editions tab
+        sidebar.addPanel({
             id: "edition",
             tab: '📅',
             title: "Edition",
             pane: data[0],
         })
-        
-    // Add stage tab
-    sidebar.addPanel({
-        id: "stages",
-        tab: '🏁',
-        title: "Stages",
-        pane: data[1],
-    })
 
-    // Add information tab
-    sidebar.addPanel({
-        id: "information",
-        tab: 'ℹ️',
-        title: "Information",
-        pane: data[2],
+        // Add stage tab
+        sidebar.addPanel({
+            id: "stages",
+            tab: '🏁',
+            title: "Stages",
+            pane: data[1],
+        })
+
+        // Add information tab
+        sidebar.addPanel({
+            id: "information",
+            tab: 'ℹ️',
+            title: "Information",
+            pane: data[2],
+        })
     })
-})
-.then(() => {
+    .then(() => {
         var coll = document.getElementsByClassName("inf_tab_collapsible");
         for (var i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
@@ -82,16 +82,15 @@ Promise.all(
                 }
             });
         };
-    }
-)
-.then(() => {
-    init_edition_selection(loaded_callback)
-    // Draw new lines and markers on edition change
-    $('#edition_select').on('change', function() {
-        var selected_edition = $(this).val();
-        changeEdition(selected_edition);
-    });
-})
+    })
+    .then(() => {
+        init_edition_selection(loaded_callback)
+            // Draw new lines and markers on edition change
+        $('#edition_select').on('change', function() {
+            var selected_edition = $(this).val();
+            changeEdition(selected_edition);
+        });
+    })
 
 // be notified when a panel is opened
 sidebar.on("content", function(ev) {
@@ -109,9 +108,17 @@ var legend = L.control({ position: "bottomright" });
 legend.onAdd = function(map) {
     var div = L.DomUtil.create("div", "legend");
     type_to_color.forEach((value, key, _) => {
-        div.innerHTML += '<i style="background: '+value+'"></i><span>'+key+'</span><br>'
+        div.innerHTML += '<i style="background: ' + value + '"></i><span>' + key + '</span><br>'
     });
 
-  return div;
+    div.innerHTML += `<i style="background: repeating-linear-gradient(
+        to right,
+        #000000,
+        #000000 5px,
+        #FFFFFF 5px,
+        #FFFFFF 10px
+      );"></i><span>Transfer</span><br>`
+
+    return div;
 };
 legend.addTo(map);

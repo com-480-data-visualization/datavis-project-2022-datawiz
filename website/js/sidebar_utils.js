@@ -59,6 +59,7 @@ function changeEdition(edition_year) {
 
     fill_stage_select(edition_year, stage_numbers)
     fill_jersey_winner(edition_year)
+    fill_edition_result_table(edition_year);
 
     // Update stage change
     $('#stage_select').on('change', function() {
