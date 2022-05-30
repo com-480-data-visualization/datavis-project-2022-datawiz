@@ -1,4 +1,4 @@
-<h4>Select:</h4>  
+<h4>Select:</h4>
 
 <div class="container py-4" style="padding-bottom: 1em;">
     <select id="edition_select" class="form-select" aria-label="Edition selection">
@@ -7,27 +7,44 @@
 
 <table id="jersey_winners" class="table table-borderless" style="vertical-align: middle; width: fit-content;">
     <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
     </thead>
     <tbody>
-        <tr id="jersey_table_entry_yellow", hidden=true>
-            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/yellow_jersey.svg"/></th>
-            <td id="winner_name_yellow" ></td>
+        <tr id="jersey_table_entry_yellow" , hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/yellow_jersey.svg" /></th>
+            <td id="winner_name_yellow"></td>
         </tr>
-        <tr id="jersey_table_entry_points", hidden=true>
-            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/green_jersey.svg"/></th>
-            <td id="winner_name_points" ></td>
+        <tr id="jersey_table_entry_points" , hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/green_jersey.svg" /></th>
+            <td id="winner_name_points"></td>
         </tr>
-        <tr id="jersey_table_entry_kom", hidden=true>
-            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/kom_jersey.svg"/></th>
-            <td id="winner_name_kom" ></td>
+        <tr id="jersey_table_entry_kom" , hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/kom_jersey.svg" /></th>
+            <td id="winner_name_kom"></td>
         </tr>
-        <tr id="jersey_table_entry_white", hidden=true>
-            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/white_jersey.svg"/></th>
-            <td id="winner_name_white" ></td>
+        <tr id="jersey_table_entry_white" , hidden=true>
+            <th scope="row"><img style="height: 1.5em; width: auto; padding-right: 9px;" src="../resources/white_jersey.svg" /></th>
+            <td id="winner_name_white"></td>
         </tr>
+    </tbody>
+</table>
+
+
+<h4>Edition result</h4>
+
+<table id="edition_result" class="table table-sm">
+    <thead>
+        <tr id="stage_result_titles"></tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Team</th>
+        <th>Time</th>
+        <th>Gap</th>
+        </tr>
+    </thead>
+    <tbody id="edition_result_body">
     </tbody>
 </table>
