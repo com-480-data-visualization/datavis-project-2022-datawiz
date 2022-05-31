@@ -21,8 +21,8 @@ function fill_stage_result_table(year, stage_number) {
     selected_stage_data = stage_data.filter(function(data) {
         return (data.year == year) && (data.stage_number == stage_number)
     })
-    var table = $("#stage_result").DataTable();
-
+    var table = $("#stage_result").DataTable()
+    
     table.clear()
     table.page("first")
     selected_stage_data.forEach(stage_data => {
@@ -35,7 +35,7 @@ function fill_edition_result_table(year) {
     selected_edition = edition_data.filter(function(edition) {
         return (edition.year == year)
     })
-    var table = $("#edition_result").DataTable();
+    var table = $("#edition_result").DataTable()
 
     table.clear()
     table.page("first")

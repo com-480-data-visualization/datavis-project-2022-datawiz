@@ -39,7 +39,7 @@ var sidebar = L.control
 // Load html
 var urls = [
     "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_edition.html",
-    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/work-jonas-reset-table-page/website/html/tab_stage.html",
+    "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_stage.html",
     "https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/website/html/tab_information.html",
 ]
 Promise.all(
@@ -85,7 +85,7 @@ Promise.all(
     })
     .then(() => {
         init_edition_selection(loaded_callback)
-            // Draw new lines and markers on edition change
+        // Draw new lines and markers on edition change
         $('#edition_select').on('change', function() {
             var selected_edition = $(this).val();
             changeEdition(selected_edition);
