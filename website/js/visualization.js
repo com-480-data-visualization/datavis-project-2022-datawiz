@@ -85,7 +85,7 @@ Promise.all(
     })
     .then(() => {
         init_edition_selection(loaded_callback)
-            // Draw new lines and markers on edition change
+        // Draw new lines and markers on edition change
         $('#edition_select').on('change', function() {
             var selected_edition = $(this).val();
             changeEdition(selected_edition);
