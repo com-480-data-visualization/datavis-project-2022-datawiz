@@ -24,6 +24,7 @@ function fill_stage_result_table(year, stage_number) {
     var table = $("#stage_result").DataTable();
 
     table.clear()
+    table.page("first")
     selected_stage_data.forEach(stage_data => {
         table.row.add([stage_data.rank, stage_data.rider, stage_data.team, format_seconds(stage_data.time_sec), "+ " + format_seconds(stage_data.time_gap_to_winner_sec)]).draw(false);
     });
@@ -37,6 +38,7 @@ function fill_edition_result_table(year) {
     var table = $("#edition_result").DataTable();
 
     table.clear()
+    table.page("first")
     selected_edition.forEach(rider_data => {
         table.row.add([rider_data.rank, rider_data.rider, rider_data.team, format_seconds(rider_data.time_sec), "+ " + format_seconds(rider_data.time_gap_to_winner_sec)]).draw(false);
     });
