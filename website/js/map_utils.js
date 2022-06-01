@@ -30,22 +30,22 @@ for (let i = 0; i < stage_types.length; i++) {
 // On each map movement, this function is called to update the positions of the D3.js elements
 function update() {
     d3.selectAll(".stage_point")
-        .attr("cx", function(d) {
+        .attr("cx", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).x;
         })
-        .attr("cy", function(d) {
+        .attr("cy", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         });
 
     d3.selectAll(".point_stage_link")
-        .attr("cx", function(d) {
+        .attr("cx", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).x;
         })
-        .attr("cy", function(d) {
+        .attr("cy", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         });
 
-    d3.selectAll(".stage_link").attr("d", function(d) {
+    d3.selectAll(".stage_link").attr("d", function (d) {
         var source = map.latLngToLayerPoint(d.source);
         source = [source.x, source.y];
 
@@ -81,9 +81,7 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
     var origins = []
     var destinations = []
 
-    selected_edition_stages = stages.filter(stage => {
-        return stage.year == selected_edition;
-    })
+    selected_edition_stages = stages.get(selected_edition)
 
     selected_edition_stages.forEach(element => {
         var origin = locations.filter(location => {
@@ -137,14 +135,14 @@ var linkGen = d3.linkHorizontal();
 var strokeWidth = 6;
 
 function reset_all_paths_states() {
-    d3.selectAll(".stage_link").attr("stroke", function() {
+    d3.selectAll(".stage_link").attr("stroke", function () {
         var color = d3.select(this).attr("original_color")
         if (color) {
             return color
         }
         return "black"
     }).attr("clicked", false)
-    d3.selectAll(".point_stage_link").attr("fill", function() {
+    d3.selectAll(".point_stage_link").attr("fill", function () {
         var color = d3.select(this).attr("original_color")
         if (color) {
             return color
@@ -164,7 +162,7 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .selectAll("links")
         .data(links)
         .join("path")
-        .attr("d", function(d) {
+        .attr("d", function (d) {
             var source = map.latLngToLayerPoint(d.source);
             source = [source.x, source.y];
 
@@ -175,14 +173,14 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         })
         .attr("fill", "none")
         .attr("stroke-width", strokeWidth)
-        .attr("stage_id", function(d) {
+        .attr("stage_id", function (d) {
             // add title for hover on tooltip
             var title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
             title.innerHTML = "Stage " + d.stage_id
             this.appendChild(title)
             return d.stage_id;
         })
-        .attr("stroke", function(d) {
+        .attr("stroke", function (d) {
             var color = type_to_color.get(d.type);
             d3.select(this).attr("original_color", color)
             return color
@@ -191,19 +189,19 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .attr("class", "leaflet-interactive stage_link")
         .attr("clicked", false)
         /* enable color change on hover */
-        .on("mouseover", function() {
+        .on("mouseover", function () {
             if (d3.select(this).attr("clicked") == "false") {
                 d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
             }
         })
-        .on("mouseout", function() {
+        .on("mouseout", function () {
             if (d3.select(this).attr("clicked") == "false") {
                 d3.select(this).attr("stroke", d3.select(this).attr("original_color"))
             }
 
         })
         /* enable stage selection by clicking on paths */
-        .on("click", function() {
+        .on("click", function () {
             reset_all_paths_states()
             d3.select(this).attr("clicked", true)
             d3.select(this).attr("stroke", pSBC(0.5, d3.select(this).attr("stroke")))
@@ -222,7 +220,7 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .selectAll("jumps")
         .data(jumps)
         .join("path")
-        .attr("d", function(d) {
+        .attr("d", function (d) {
             var source = map.latLngToLayerPoint(d.source);
             source = [source.x, source.y];
 
@@ -243,14 +241,14 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .data(stage_markers)
         .enter()
         .append("circle")
-        .attr("cx", function(d) {
+        .attr("cx", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).x;
         })
-        .attr("cy", function(d) {
+        .attr("cy", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         })
         .attr("r", 8)
-        .attr("fill", function(d) {
+        .attr("fill", function (d) {
             var color = type_to_color.get(d.type);
             d3.select(this).attr("original_color", color)
             return color
@@ -259,19 +257,19 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .attr("class", "leaflet-interactive point_stage_link")
         .attr("clicked", false)
         /* enable color change on hover */
-        .on("mouseover", function() {
+        .on("mouseover", function () {
             if (d3.select(this).attr("clicked") == "false") {
                 d3.select(this).attr("fill", pSBC(0.5, d3.select(this).attr("fill")))
             }
         })
-        .on("mouseout", function() {
+        .on("mouseout", function () {
             if (d3.select(this).attr("clicked") == "false") {
                 d3.select(this).attr("fill", d3.select(this).attr("original_color"))
             }
 
         })
         /* enable stage selection by clicking on point */
-        .on("click", function() {
+        .on("click", function () {
             reset_all_paths_states()
             d3.select(this).attr("clicked", true)
             d3.select(this).attr("fill", pSBC(0.5, d3.select(this).attr("fill")))
@@ -284,7 +282,7 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
             fill_stage_result_table(edition_year, selected_stage.stage)
             fill_stage_result_information(edition_year, selected_stage.stage)
         })
-        .attr("stage_id", function(d) {
+        .attr("stage_id", function (d) {
             // add title for hover on tooltip
             var title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
             title.innerHTML = "Stage " + d.stage_id
@@ -300,10 +298,10 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
         .data(markers)
         .enter()
         .append("circle")
-        .attr("cx", function(d) {
+        .attr("cx", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).x;
         })
-        .attr("cy", function(d) {
+        .attr("cy", function (d) {
             return map.latLngToLayerPoint([d.lat, d.long]).y;
         })
         .attr("r", 4)
