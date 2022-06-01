@@ -81,9 +81,7 @@ function get_markers_links_and_jumps_of_year(selected_edition, stages, locations
     var origins = []
     var destinations = []
 
-    selected_edition_stages = stages.filter(stage => {
-        return stage.year == selected_edition;
-    })
+    selected_edition_stages = stages.get(selected_edition)
 
     selected_edition_stages.forEach(element => {
         var origin = locations.filter(location => {

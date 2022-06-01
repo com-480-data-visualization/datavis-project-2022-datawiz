@@ -5,13 +5,23 @@
 */
 
 var flags;
-var stages;
-var winners;
+var stages = new Map();
+var winners = new Map();
 var locations;
-var stage_data;
-var jerseys_data;
-var edition_data;
+var stage_data = new Map();
+var jerseys_data = new Map();
+var edition_data = new Map();
 var jersey_imgs = new Map();
+
+function build_map(map, row) {
+    if (map.has(row.year)) {
+        map.get(row.year).push(row)
+    } else {
+        var arr = new Array()
+        arr.push(row)
+        map.set(row.year, arr)
+    }
+}
 
 
 function init_edition_selection(callback) {
@@ -25,16 +35,17 @@ function init_edition_selection(callback) {
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/flags.csv"),
     ]).then(function(initialize) {
         locations = initialize[0];
-        stages = initialize[1]
-        stage_data = initialize[2]
-        jerseys_data = initialize[3]
-        edition_data = initialize[4]
-        winners = initialize[5]
+        initialize[1].forEach((value, index, array) => {build_map(stages, value)});
+        initialize[2].forEach((value, index, array) => {build_map(stage_data, value)});
+        initialize[3].forEach((value, index, array) => {build_map(jerseys_data, value)});
+        initialize[4].forEach((value, index, array) => {build_map(edition_data, value)});
+        initialize[5].forEach((value, index, array) => {build_map(winners, value)});
         flags = initialize[6]
+
         const years = new Set()
-        stages.forEach(stage => {
-            years.add(stage.year);
-        });
+        for (year of stages.keys()) {
+            years.add(year);
+        }
 
         var starting_year = "2017"
 
@@ -56,12 +67,7 @@ function changeEdition(edition_year) {
 
     draw_map_elements(markers, links, jumps, stage_markers)
 
-    var stage_numbers = new Set()
-    stages.forEach(stage => {
-        if (stage.year == edition_year) {
-            stage_numbers.add(stage.stage)
-        }
-    })
+    var stage_numbers = stages.get(edition_year).map((value, index, array) => value.stage)
 
     fill_stage_select(edition_year, stage_numbers)
     fill_stage_result_information(edition_year, 1)

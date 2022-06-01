@@ -29,8 +29,8 @@ function format_date(s) {
 }
 
 function fill_stage_result_table(year, stage_number) {
-    selected_stage_data = stage_data.filter(function(data) {
-        return (data.year == year) && (data.stage_number == stage_number)
+    selected_stage_data = stage_data.get(year).filter(function(data) {
+        return data.stage_number == stage_number
     })
     var table = $("#stage_result").DataTable()
     
@@ -48,8 +48,8 @@ function fill_stage_result_information(year, stage) {
     var type = document.getElementById("stage_type");
     var origin = document.getElementById("start_point");
     var finish = document.getElementById("end_point");
-    var selected_stage_information = stages.filter(function (data) {
-        return (data.year == year) && (data.stage == stage)
+    var selected_stage_information = stages.get(year).filter(function (data) {
+        return data.stage == stage
     })
     starting_date.innerHTML = format_date(selected_stage_information[0].date);
     distance.innerHTML = selected_stage_information[0].distance_km + ' km';
@@ -59,14 +59,11 @@ function fill_stage_result_information(year, stage) {
 }
 
 function fill_edition_result_table(year) {
-    selected_edition = edition_data.filter(function(edition) {
-        return (edition.year == year)
-    })
     var table = $("#edition_result").DataTable()
 
     table.clear()
     table.page("first")
-    selected_edition.forEach(rider_data => {
+    edition_data.get(year).forEach(rider_data => {
         table.row.add([rider_data.rank, rider_data.rider, rider_data.team, format_seconds(rider_data.time_sec), "+ " + format_seconds(rider_data.time_gap_to_winner_sec)]).draw(false);
     });
 }
@@ -78,10 +75,8 @@ function fill_jersey_winner(year) {
     var data_row = [];
     var winners = new Map();
 
-    jerseys_data.forEach(row => {
-        if (row.year == year) {
-            data_row = row
-        }
+    jerseys_data.get(year).forEach(row => {
+        data_row = row
     });
 
     jerseys.forEach(jersey => {
@@ -124,9 +119,7 @@ function fill_edition_result_information(year){
     var teams = new Set()
     var starters = new Set()
     
-    edition_stats = stages.filter(function (data) {
-        return (data.year == year)
-    })
+    var edition_stats = stages.get(year)
 
     var start_date = edition_stats[0].date
     var end_date = edition_stats[edition_stats.length-1].date
@@ -144,9 +137,7 @@ function fill_edition_result_information(year){
     sum_distance =  Array.from(distances).reduce((a, b) => a + b, 0)
     edition_distance.innerHTML  = sum_distance +' km';
 
-    selected_stage_data = stage_data.filter(function (data) {
-        return (data.year == year) 
-    })
+    selected_stage_data = stage_data.get(year)
     selected_stage_data.forEach(select_date => {
     teams.add(select_date.team)
     starters.add(select_date.rider)
