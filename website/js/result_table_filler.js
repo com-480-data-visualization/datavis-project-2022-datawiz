@@ -39,23 +39,21 @@ function fill_stage_result_table(year, stage_number) {
     });
 }
 
-function fill_stage_result_information(year,stage) {
+function fill_stage_result_information(year, stage) {
 
     var starting_date = document.getElementById("stage_date");
     var distance = document.getElementById("stage_distance");
     var type = document.getElementById("stage_type");
     var origin = document.getElementById("start_point");
     var finish = document.getElementById("end_point");
-    var winner_ = document.getElementById("winner");
     selected_stage_information = stages.filter(function (data) {
         return (data.year == year) && (data.stage == stage)
     })
-    starting_date.innerHTML = ("Start Date: " +  format_date(selected_stage_information[0].date));
-    distance.innerHTML = ("Distance: " +  selected_stage_information[0].distance_km + ' km');
-    type.innerHTML  = ("Stage Type: " +  selected_stage_information[0].type);
-    origin.innerHTML  =  ("Starting point: " + selected_stage_information[0].origin);
-    finish.innerHTML  = ("End point: " + selected_stage_information[0].destination);
-    winner_.innerHTML = ("Winner: " + selected_stage_information[0].winner);   
+    starting_date.innerHTML = format_date(selected_stage_information[0].date);
+    distance.innerHTML = selected_stage_information[0].distance_km + ' km';
+    type.innerHTML  = selected_stage_information[0].type;
+    origin.innerHTML  =  selected_stage_information[0].origin;
+    finish.innerHTML  = selected_stage_information[0].destination;
 }
 
 function fill_edition_result_table(year) {
@@ -128,11 +126,11 @@ function fill_edition_result_information(year){
         starters.add(edition_stat.rider)
     })
 
-    edition_date.innerHTML = (format_date(start_date));
-    edition_end.innerHTML = (format_date(end_date));
-    num_of_stages.innerHTML = (Array.from(number_of_stages).pop());
+    edition_date.innerHTML = format_date(start_date);
+    edition_end.innerHTML = format_date(end_date);
+    num_of_stages.innerHTML = Array.from(number_of_stages).pop();
     sum_distance =  Array.from(distances).reduce((a, b) => a + b, 0)
-    edition_distance.innerHTML  = (sum_distance +' km');
+    edition_distance.innerHTML  = sum_distance +' km';
 
     selected_stage_data = stage_data.filter(function (data) {
         return (data.year == year) 

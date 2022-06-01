@@ -41,6 +41,7 @@ function init_edition_selection(callback) {
         fill_edition_select(years, starting_year)
         fill_edition_result_information(starting_year)
         changeEdition(starting_year)
+        set_stage_emoji()
         callback()
     });
 }
@@ -93,4 +94,38 @@ function changeEdition(edition_year) {
         }
         
     });
+}
+
+function set_stage_emoji() {
+    var container = document.getElementById("stage_type_emoji");
+    var stage_type = document.getElementById("stage_type").innerHTML;
+    switch (stage_type) {
+        case 'Flat stage':
+            container.innerHTML = "🌳";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Hilly stage':
+            container.innerHTML = "🌄";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Mountain stage':
+            container.innerHTML = "⛰️";
+            container.style.fontSize = "70pt"
+            break;
+        case 'High mountain stage':
+            container.innerHTML = "🏔️";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Individual time trial':
+            container.innerHTML = "🚴‍♀️";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Team time trial':
+            container.innerHTML = "🚴‍♀️🚴‍♀️🚴‍♀️";
+            container.style.fontSize = "40pt"
+            break;
+        default:
+          console.log(`Unknown stage type ${expr}.`);
+      }
+      
 }

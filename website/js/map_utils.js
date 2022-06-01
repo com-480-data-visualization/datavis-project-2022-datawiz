@@ -212,7 +212,9 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
                 return stage.stage == d3.select(this).attr("stage_id");
             })[0]
             document.getElementById("stage_select").value = selected_stage.stage
-            fill_stage_result_table(selected_stage.date.slice(0, 4), selected_stage.stage)
+            var edition_year = selected_stage.date.slice(0, 4)
+            fill_stage_result_table(edition_year, selected_stage.stage)
+            fill_stage_result_information(edition_year, selected_stage.stage)
         })
 
     d3.select("#map")
@@ -278,7 +280,9 @@ function draw_map_elements(markers, links, jumps, stage_markers) {
                 return stage.stage == d3.select(this).attr("stage_id");
             })[0]
             document.getElementById("stage_select").value = selected_stage.stage
-            fill_stage_result_table(selected_stage.date.slice(0, 4), selected_stage.stage)
+            var edition_year = selected_stage.date.slice(0, 4)
+            fill_stage_result_table(edition_year, selected_stage.stage)
+            fill_stage_result_information(edition_year, selected_stage.stage)
         })
         .attr("stage_id", function(d) {
             // add title for hover on tooltip
