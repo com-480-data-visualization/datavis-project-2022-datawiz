@@ -29,11 +29,11 @@ function format_date(s) {
 }
 
 function fill_stage_result_table(year, stage_number) {
-    selected_stage_data = stage_data.get(year).filter(function(data) {
+    selected_stage_data = stage_data.get(year).filter(function (data) {
         return data.stage_number == stage_number
     })
     var table = $("#stage_result").DataTable()
-    
+
     table.clear()
     table.page("first")
     selected_stage_data.forEach(stage_data => {
@@ -53,9 +53,9 @@ function fill_stage_result_information(year, stage) {
     })
     starting_date.innerHTML = format_date(selected_stage_information[0].date);
     distance.innerHTML = selected_stage_information[0].distance_km + ' km';
-    type.innerHTML  = selected_stage_information[0].type;
-    origin.innerHTML  =  selected_stage_information[0].origin;
-    finish.innerHTML  = selected_stage_information[0].destination;
+    type.innerHTML = selected_stage_information[0].type;
+    origin.innerHTML = selected_stage_information[0].origin;
+    finish.innerHTML = selected_stage_information[0].destination;
 }
 
 function fill_edition_result_table(year) {
@@ -99,7 +99,7 @@ function fill_jersey_winner(year) {
     })
 }
 
-function fill_edition_result_information(year){
+function fill_edition_result_information(year) {
 
     if (armstrong_doping_years.includes(year)) {
         document.getElementById("armstrong_doping_note").hidden = null
@@ -118,12 +118,12 @@ function fill_edition_result_information(year){
     var distances = new Set()
     var teams = new Set()
     var starters = new Set()
-    
+
     var edition_stats = stages.get(year)
 
     var start_date = edition_stats[0].date
-    var end_date = edition_stats[edition_stats.length-1].date
-    
+    var end_date = edition_stats[edition_stats.length - 1].date
+
     edition_stats.forEach(edition_stat => {
         number_of_stages.add(edition_stat.stage);
         distances.add(parseInt(edition_stat.distance_km));
@@ -133,15 +133,15 @@ function fill_edition_result_information(year){
 
     edition_date.innerHTML = format_date(start_date);
     edition_end.innerHTML = format_date(end_date);
-    num_of_stages.innerHTML = Array.from(number_of_stages).pop();
-    sum_distance =  Array.from(distances).reduce((a, b) => a + b, 0)
-    edition_distance.innerHTML  = sum_distance +' km';
+    num_of_stages.innerHTML = Array.from(number_of_stages).length;
+    sum_distance = Array.from(distances).reduce((a, b) => a + b, 0)
+    edition_distance.innerHTML = sum_distance + ' km';
 
     selected_stage_data = stage_data.get(year)
     selected_stage_data.forEach(select_date => {
-    teams.add(select_date.team)
-    starters.add(select_date.rider)
-    })  
+        teams.add(select_date.team)
+        starters.add(select_date.rider)
+    })
     total_riders.innerHTML = (starters.size);
     total_teams.innerHTML = (teams.size);
 

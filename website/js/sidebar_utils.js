@@ -33,13 +33,13 @@ function init_edition_selection(callback) {
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/TDF_Riders_History.csv"),
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/tdf_winners.csv"),
         d3.csv("https://raw.githubusercontent.com/com-480-data-visualization/datavis-project-2022-datawiz/master/data/flags.csv"),
-    ]).then(function(initialize) {
+    ]).then(function (initialize) {
         locations = initialize[0];
-        initialize[1].forEach((value, index, array) => {build_map(stages, value)});
-        initialize[2].forEach((value, index, array) => {build_map(stage_data, value)});
-        initialize[3].forEach((value, index, array) => {build_map(jerseys_data, value)});
-        initialize[4].forEach((value, index, array) => {build_map(edition_data, value)});
-        initialize[5].forEach((value, index, array) => {build_map(winners, value)});
+        initialize[1].forEach((value, index, array) => { build_map(stages, value) });
+        initialize[2].forEach((value, index, array) => { build_map(stage_data, value) });
+        initialize[3].forEach((value, index, array) => { build_map(jerseys_data, value) });
+        initialize[4].forEach((value, index, array) => { build_map(edition_data, value) });
+        initialize[5].forEach((value, index, array) => { build_map(winners, value) });
         flags = initialize[6]
 
         const years = new Set()
@@ -74,9 +74,9 @@ function changeEdition(edition_year) {
     fill_jersey_winner(edition_year)
     fill_edition_result_table(edition_year);
     fill_edition_result_information(edition_year)
-    
+
     // Update stage change
-    $('#stage_select').on('change', function() {
+    $('#stage_select').on('change', function () {
         // Update which results are displayed
         var selected_stage = $(this).val();
         var selected_year = document.getElementById("edition_select").value
@@ -85,21 +85,21 @@ function changeEdition(edition_year) {
         // Update which path is higlighted
         reset_all_paths_states()
         var link = d3.selectAll(".leaflet-interactive.stage_link")
-            .filter(function(d) {
+            .filter(function (d) {
                 return d.stage_id == selected_stage
             })
         link.attr("clicked", true)
             .attr("stroke", pSBC(0.5, link.attr("stroke")))
-        
+
         var link = d3.selectAll(".leaflet-interactive.point_stage_link")
-            .filter(function(d) {
+            .filter(function (d) {
                 return d.stage_id == selected_stage
             })
         if (!!link.node()) {
             link.attr("clicked", true)
-            .attr("fill", pSBC(0.5, link.attr("fill")))
+                .attr("fill", pSBC(0.5, link.attr("fill")))
         }
-        
+
     });
 }
 
@@ -132,7 +132,7 @@ function set_stage_emoji() {
             container.style.fontSize = "40pt"
             break;
         default:
-          console.log(`Unknown stage type ${expr}.`);
-      }
-      
+            console.log(`Unknown stage type ${expr}.`);
+    }
+
 }
