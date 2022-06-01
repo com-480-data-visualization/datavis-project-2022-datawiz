@@ -66,13 +66,13 @@ function changeEdition(edition_year) {
     fill_stage_result_information(edition_year, 1)
     fill_jersey_winner(edition_year)
     fill_edition_result_table(edition_year);
+    fill_edition_result_information(edition_year)
     
     // Update stage change
     $('#stage_select').on('change', function() {
         // Update which results are displayed
         var selected_stage = $(this).val();
         fill_stage_result_table(edition_year, selected_stage)
-        fill_edition_result_information(edition_year)
         fill_stage_result_information(edition_year, selected_stage)
         // Update which path is higlighted
         reset_all_paths_states()
