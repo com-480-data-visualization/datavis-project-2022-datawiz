@@ -6,7 +6,7 @@
 | Jonas Konrad |
 | Nana Tian |
 
-The visualisation is available [here](https://com-480-data-visualization.github.io/datavis-project-2022-datawiz/website/html/prototype.html).
+The visualisation is available [here](https://com-480-data-visualization.github.io/datavis-project-2022-datawiz/website/html/website.html).
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
