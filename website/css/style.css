@@ -7,6 +7,7 @@
 
 .content_container {
   font-family: var(--sidebar_font_fam), var(--sidebar_font_vam_fallback);
+  font-size: 1.125rem;
 }
 
 

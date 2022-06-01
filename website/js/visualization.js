@@ -70,9 +70,19 @@ Promise.all(
         })
     })
     .then(() => {
+        // make information tab buttons clickable
         var coll = document.getElementsByClassName("inf_tab_collapsible");
         for (var i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
+                // close other tabs
+                for (let elem of coll) {
+                    if (elem != this) {
+                        elem.classList.remove("active")
+                        elem.nextElementSibling.style.maxHeight = null;
+                    }
+                }
+
+                // toggle this tab
                 this.classList.toggle("active");
                 var content = this.nextElementSibling;
                 if (content.style.maxHeight) {
