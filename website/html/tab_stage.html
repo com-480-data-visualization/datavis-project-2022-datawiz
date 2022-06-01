@@ -1,33 +1,80 @@
-<h4>Select:</h4>
+<!-- selection -->
+<div style="display: flex; justify-content: center; align-items: center;">
+    <h4 style="width: 50%; float: left;">Select the stage:</h4>
 
-<div class="container py-4" style="padding-bottom: 1em;">
-    <select id="stage_select" class="form-select" aria-label="Stage selection">
-
-    </select>
+    <div class="container py-4" style="padding-bottom: 1em;">
+        <select id="stage_select" class="form-select" aria-label="Stage selection">
+        </select>
+    </div>
 </div>
 
-<h4>Stats:</h4>
-<body>
-    <p id="stage_date"></p>
-    <p id="stage_distance"></p>
-    <p id="stage_type"> </p>    
-    <p id="start_point"> </p>   
-    <p id="end_point"></p> 
-    <p id="winner"></p> 
-</body>
+<!-- stats -->
+<div>
 
-<h4>Stage result</h4>
+</div>
+    <h4>Stats:</h4>
 
-<table id="stage_result" class="display compact" style="width:100%">
-    <thead>
-        <tr id="stage_result_titles"></tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Team</th>
-        <th>Time</th>
-        <th>Gap</th>
-        </tr>
-    </thead>
-    <tbody id="stage_result_body">
-    </tbody>
-</table>
+    <div style="width: 90%; margin: 0 auto;">
+        <!-- start and end points -->
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="display: flex; width: 50%; float: left;">
+                <p style="width: 20%; float:left;"><strong>From </strong></p>
+                <div id="start_point" style="width: 80%; float: right;"></div>
+            </div>
+            <div style="display: flex; width: 50%; float: right;">
+                <p style="width: 20%; float:left;"><strong>to </strong></p>
+                <div id="end_point" style="width: 80%; float: right;"></div>
+            </div>
+        </div>
+
+        <!-- numerical stats -->
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div style="display: flex; width: 70%; float: left;">
+                <table class="table table-borderless" style="vertical-align: middle; width: fit-content;">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" style="padding-left: 0pt;">On </th>
+                            <td id="stage_date" style="padding-right: 0pt; text-align: end;"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="padding-left: 0pt;">Stage distance</th>
+                            <td id="stage_distance" style="padding-right: 0pt; text-align: end;"></td> 
+                        </tr>
+                        <tr>
+                            <th scope="row" style="padding-left: 0pt;">Stage type</th>
+                            <td id="stage_type" style="padding-right: 0pt; text-align: end;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="display: flex; width: 30%; float: right;">
+                <div id="stage_type_emoji" style="font-size: 60pt;"></div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<!-- result table -->
+<div>
+    <h4 style="padding-bottom: 0.5em;">Stage result:</h4>
+
+    <table id="stage_result" class="display compact" style="width:100%">
+        <thead>
+            <tr id="stage_result_titles"></tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Time</th>
+            <th>Gap</th>
+            </tr>
+        </thead>
+        <tbody id="stage_result_body">
+        </tbody>
+    </table>
+</div>

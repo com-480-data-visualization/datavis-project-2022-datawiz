@@ -1,3 +1,16 @@
+/* vars used in all stylesheets */
+:root {
+  --accent_color: #244279;
+  --sidebar_font_fam: "Noto Sans";
+  --sidebar_font_vam_fallback: sans-serif
+}
+
+.content_container {
+  font-family: var(--sidebar_font_fam), var(--sidebar_font_vam_fallback);
+  font-size: 1.125rem;
+}
+
+/* loading screen */
 #loading_screen {
   border: 16px solid #f3f3f3;
   border-top: 16px solid var(--accent_color);
@@ -18,6 +31,7 @@
   100% { transform: rotate(360deg); }
 }
 
+/* drop down menus */
 .dropdown-menu {
     max-height: 180px;
     overflow-y: auto;
@@ -55,13 +69,3 @@
     background-size: 18px;
     background-color: rgba(255, 255, 255, 1);
   }
-
-/* Borderless boostrap table */
-.table-borderless > tbody > tr > td,
-.table-borderless > tbody > tr > th,
-.table-borderless > tfoot > tr > td,
-.table-borderless > tfoot > tr > th,
-.table-borderless > thead > tr > td,
-.table-borderless > thead > tr > th {
-    border: none;
-}

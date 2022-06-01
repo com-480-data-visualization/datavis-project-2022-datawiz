@@ -41,6 +41,7 @@ function init_edition_selection(callback) {
         fill_edition_select(years, starting_year)
         fill_edition_result_information(starting_year)
         changeEdition(starting_year)
+        set_stage_emoji()
         callback()
     });
 }
@@ -66,13 +67,13 @@ function changeEdition(edition_year) {
     fill_stage_result_information(edition_year, 1)
     fill_jersey_winner(edition_year)
     fill_edition_result_table(edition_year);
+    fill_edition_result_information(edition_year)
     
     // Update stage change
     $('#stage_select').on('change', function() {
         // Update which results are displayed
         var selected_stage = $(this).val();
         fill_stage_result_table(edition_year, selected_stage)
-        fill_edition_result_information(edition_year)
         fill_stage_result_information(edition_year, selected_stage)
         // Update which path is higlighted
         reset_all_paths_states()
@@ -93,4 +94,38 @@ function changeEdition(edition_year) {
         }
         
     });
+}
+
+function set_stage_emoji() {
+    var container = document.getElementById("stage_type_emoji");
+    var stage_type = document.getElementById("stage_type").innerHTML;
+    switch (stage_type) {
+        case 'Flat stage':
+            container.innerHTML = "🌳";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Hilly stage':
+            container.innerHTML = "🌄";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Mountain stage':
+            container.innerHTML = "⛰️";
+            container.style.fontSize = "70pt"
+            break;
+        case 'High mountain stage':
+            container.innerHTML = "🏔️";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Individual time trial':
+            container.innerHTML = "🚴‍♀️";
+            container.style.fontSize = "70pt"
+            break;
+        case 'Team time trial':
+            container.innerHTML = "🚴‍♀️🚴‍♀️🚴‍♀️";
+            container.style.fontSize = "40pt"
+            break;
+        default:
+          console.log(`Unknown stage type ${expr}.`);
+      }
+      
 }

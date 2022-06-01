@@ -18,6 +18,9 @@ var loaded_callback = () => {
 
 var map = L.map("map").setView([47, 2], 6);
 
+// move zoom button to the right
+d3.select(".leaflet-top.leaflet-left").attr("class", "leaflet-top leaflet-right");
+
 // Add a tile to the map = a background. Comes from OpenStreetmap
 L.tileLayer(
     "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png", {
@@ -70,9 +73,19 @@ Promise.all(
         })
     })
     .then(() => {
+        // make information tab buttons clickable
         var coll = document.getElementsByClassName("inf_tab_collapsible");
         for (var i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
+                // close other tabs
+                for (let elem of coll) {
+                    if (elem != this) {
+                        elem.classList.remove("active")
+                        elem.nextElementSibling.style.maxHeight = null;
+                    }
+                }
+
+                // toggle this tab
                 this.classList.toggle("active");
                 var content = this.nextElementSibling;
                 if (content.style.maxHeight) {
@@ -82,9 +95,16 @@ Promise.all(
                 }
             });
         };
+
+        // dynamically update stage type illustration in edition tab
+        observer = new MutationObserver(function(mutationsList, observer) {
+            set_stage_emoji()
+        });
+        observer.observe(document.getElementById("stage_type"), {childList: true, subtree: true, characterData: true});
     })
     .then(() => {
         init_edition_selection(loaded_callback)
+
         // Draw new lines and markers on edition change
         $('#edition_select').on('change', function() {
             var selected_edition = $(this).val();

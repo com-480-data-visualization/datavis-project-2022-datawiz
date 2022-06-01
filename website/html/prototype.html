@@ -42,7 +42,7 @@
         body,
         #map {
             height: 100%;
-            font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+            font: 10pt var(--sidebar_font_fam), var(--sidebar_font_vam_fallback);
         }
     </style>
 </head>
@@ -53,7 +53,7 @@
     <div id="loading_screen"></div>
 
     <!-- sidebar -->
-    <div id="sidebar" class="leaflet-sidebar collapsed">
+    <div id="sidebar" class="leaflet-sidebar collapsed content_container">
 
         <!-- nav tabs -->
         <div class="leaflet-sidebar-tabs">
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <div id="map"></div>
+    <div id="map" class="content_container"></div>
 
     <!-- launch the visualization -->
     <script src="../js/visualization.js" defer></script>
