@@ -38,8 +38,6 @@ function fill_stage_result_information(year,stage) {
     var origin = document.getElementById("start_point");
     var finish = document.getElementById("end_point");
     var winner_ = document.getElementById("winner");
-    var winner_country_ = document.getElementById("winner_country");
-    var flag = document.getElementById("winner_flag");
     selected_stage_information = stages.filter(function (data) {
         return (data.year == year) && (data.stage == stage)
     })
@@ -48,17 +46,7 @@ function fill_stage_result_information(year,stage) {
     type.innerHTML  = ("Stage Type: " +  selected_stage_information[0].type);
     origin.innerHTML  =  ("Starting point: " + selected_stage_information[0].origin);
     finish.innerHTML  = ("End point: " + selected_stage_information[0].destination);
-    winner_.innerHTML = ("Winner: " + selected_stage_information[0].winner);
-    
-    winner_country = winners.filter(function (data) {
-        return (data.winner_name == selected_stage_information[0].winner)
-    })
-    /*winner_flag = flags.filter(function (data) {
-        return (data.country == winner_country[0].nationality)
-    })*/
-    /*issue1 this winner country does not update accordingly*/
-    winner_country_.innerHTML= ("WinnerCountry: " + winner_country[0].nationality);
-    /*flag.innerHTML = ("Country_flag: " + winner_flag[0].flag_symbol);*/
+    winner_.innerHTML = ("Winner: " + selected_stage_information[0].winner);   
 }
 
 function fill_edition_result_table(year) {
