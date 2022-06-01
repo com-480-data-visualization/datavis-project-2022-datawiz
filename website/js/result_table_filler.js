@@ -4,6 +4,8 @@
 
 */
 
+var armstrong_doping_years = ["1999", "2000", "2001", "2002", "2003", "2004", "2005"]
+
 function format_seconds(seconds) {
     d = Number(seconds);
     var hv = Math.floor(d / 3600);
@@ -94,11 +96,21 @@ function fill_jersey_winner(year) {
 
     winners.forEach((value, key, _) => {
         table.select("#jersey_table_entry_" + key).attr("hidden", null)
-        table.select("#winner_name_" + key).text(value)
+        if (armstrong_doping_years.includes(year) && key == "yellow") {
+            table.select("#winner_name_" + key).text(value.split('').map(char => char + '\u0336').join(''))
+        } else {
+            table.select("#winner_name_" + key).text(value)
+        }
     })
 }
 
 function fill_edition_result_information(year){
+
+    if (armstrong_doping_years.includes(year)) {
+        document.getElementById("armstrong_doping_note").hidden = null
+    } else {
+        document.getElementById("armstrong_doping_note").hidden = true
+    }
 
     var edition_date = document.getElementById("edition_date");
     var edition_end = document.getElementById("edition_end");
