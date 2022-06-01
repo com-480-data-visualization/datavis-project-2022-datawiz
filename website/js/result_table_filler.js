@@ -48,7 +48,7 @@ function fill_stage_result_information(year, stage) {
     var type = document.getElementById("stage_type");
     var origin = document.getElementById("start_point");
     var finish = document.getElementById("end_point");
-    selected_stage_information = stages.filter(function (data) {
+    var selected_stage_information = stages.filter(function (data) {
         return (data.year == year) && (data.stage == stage)
     })
     starting_date.innerHTML = format_date(selected_stage_information[0].date);
