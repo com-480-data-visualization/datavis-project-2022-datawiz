@@ -22,11 +22,14 @@
 
 /* add symbol + - */
 .inf_tab_collapsible:after {
-    content: "\02795"; /* Unicode character for "plus" sign (+) */
+    content: "\02795";
+    /* Unicode character for "plus" sign (+) */
     font-size: 13px;
     float: right;
     margin-left: 5px;
 }
+
 .active.inf_tab_collapsible:after {
-    content: "\2796"; /* Unicode character for "minus" sign (-) */
+    content: "\2796";
+    /* Unicode character for "minus" sign (-) */
 }
