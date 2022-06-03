@@ -23,3 +23,5 @@
 📹 The screencast is available [here](https://www.youtube.com/watch?v=ZE1bZLYuqec).
 
 🖥️ The visualisation is available [here](https://com-480-data-visualization.github.io/datavis-project-2022-datawiz/website/html/website.html).
+
+🗒️ The process book is available [here](milestones/process_book.pdf).
